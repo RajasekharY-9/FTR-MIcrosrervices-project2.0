@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @SpringBootApplication
 //Now I want to register my MS in ServiceRegistry for tracebility
+//If we want the circuit breakers,retry logics we can add resilliance4j
 @EnableDiscoveryClient
 @CrossOrigin(origins = "*")
 public class TerminalMsApplication {
