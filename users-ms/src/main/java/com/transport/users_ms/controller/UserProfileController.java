@@ -13,12 +13,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin
 public class UserProfileController {
     @Autowired
     private UserProfileService userProfileService;
 
     @PostMapping
+    //http://localhost:8080/users
     public UserProfileDTO createUserProfile(@RequestBody UserProfileDTO userProfileDTO) throws UserProfileException {
+
         return userProfileService.createUserProfile(userProfileDTO);
     }
     @PostMapping("/user-newitem")

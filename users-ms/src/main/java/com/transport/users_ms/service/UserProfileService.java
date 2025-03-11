@@ -21,4 +21,5 @@ public interface UserProfileService {
     String updateWorkItem(String workitemId, WorkitemDTO workitemDTO);
 
     List<String> getAvailableHarborLocations();
+
 }

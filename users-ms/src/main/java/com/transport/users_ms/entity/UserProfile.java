@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserProfile {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     private String firstName;
     private String lastName;

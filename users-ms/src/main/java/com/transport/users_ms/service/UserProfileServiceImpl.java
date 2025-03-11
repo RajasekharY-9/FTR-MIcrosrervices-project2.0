@@ -33,11 +33,19 @@ public class UserProfileServiceImpl implements UserProfileService {
         this.restTemplate = restTemplate;
     }
 
+    public UserProfileServiceImpl() {
+
+    }
+
+    public UserProfileServiceImpl(UserProfileRepository repo) {
+    }
+
 
     @Override
     public UserProfileDTO createUserProfile(UserProfileDTO userProfileDTO) throws UserProfileException {
         UserProfile userProfile = mapToEntity(userProfileDTO);
         UserProfile savedUserProfile = userProfileRepository.save(userProfile);
+
         return mapToDTO(savedUserProfile);
     }
 
@@ -143,7 +151,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     private UserProfile mapToEntity(UserProfileDTO userProfileDTO) {
         UserProfile userProfile = new UserProfile();
-        userProfile.setUserId(userProfileDTO.getUserId());
+       // userProfile.setUserId(userProfileDTO.getUserId());
         userProfile.setFirstName(userProfileDTO.getFirstName());
         userProfile.setLastName(userProfileDTO.getLastName());
         userProfile.setEmailId(userProfileDTO.getEmailId());
@@ -159,7 +167,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     private UserProfileDTO mapToDTO(UserProfile userProfile) {
         UserProfileDTO userProfileDTO = new UserProfileDTO();
-        userProfileDTO.setUserId(userProfile.getUserId());
+       // userProfileDTO.setUserId(userProfile.getUserId());
         userProfileDTO.setFirstName(userProfile.getFirstName());
         userProfileDTO.setLastName(userProfile.getLastName());
         userProfileDTO.setEmailId(userProfile.getEmailId());
