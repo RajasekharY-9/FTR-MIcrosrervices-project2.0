@@ -1,6 +1,7 @@
 package com.transport.service;
 
 import com.transport.dto.TerminalDTO;
+import com.transport.entity.Aeroplane;
 import com.transport.exception.TerminalException;
 
 import java.util.List;
@@ -12,4 +13,5 @@ public interface TerminalService {
     public TerminalDTO insertNewTerminal(TerminalDTO terminalDTO);
     public String updateTerminal(String terminalId, Integer newCapacity);
     public String removeTerminal(String terminalId);
+    public Aeroplane[] consumeFlighDetails();
 }

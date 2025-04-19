@@ -1,6 +1,7 @@
 package com.transport.controller;
 
 import com.transport.dto.TerminalDTO;
+import com.transport.entity.Aeroplane;
 import com.transport.exception.TerminalException;
 import com.transport.service.TerminalServiceImpl;
 import jakarta.validation.Valid;
@@ -47,6 +48,9 @@ public class TerminalController {
         return ResponseEntity.ok(terminalService.removeTerminal(terminalId));
     }
 
-
+    @GetMapping("/flights")
+    public Aeroplane[] consumeFlighDetails(){
+       return terminalService.consumeFlighDetails();
+    }
 
 }

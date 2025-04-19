@@ -1,13 +1,19 @@
 package com.transport.service;
 
 import com.transport.dto.TerminalDTO;
+import com.transport.entity.Aeroplane;
+import com.transport.entity.AuthRequest;
+import com.transport.entity.AuthResponse;
 import com.transport.entity.Terminal;
 import com.transport.exception.TerminalException;
 import com.transport.repository.TerminalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +22,8 @@ public class TerminalServiceImpl implements TerminalService {
 
     @Autowired
     private TerminalRepository terminalRepository;
+
+
 
     @Override
     public List<TerminalDTO> fetchFTRTerminals() {
@@ -98,6 +106,33 @@ public class TerminalServiceImpl implements TerminalService {
         terminal.setStatus(dto.getStatus());
         terminal.setHarborLocation(dto.getHarborLocation());
         return terminal;
+    }
+
+    public Aeroplane[] consumeFlighDetails(){
+          String JWT_TOKEN = null;
+         final String BASE_URL = "http://localhost:8080/api/flights/all";
+final String login="http://localhost:8080/auth/login";
+        AuthRequest req=new AuthRequest();
+        req.setUsername("Rajavaru");
+        req.setPassword("RaniGaru");
+
+        RestTemplate restTemplate = new RestTemplate();
+        AuthResponse authResponse = restTemplate.postForObject(login, req, AuthResponse.class);
+        JWT_TOKEN=authResponse.getToken();
+        System.out.println(JWT_TOKEN);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(JWT_TOKEN);
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<Aeroplane[]> response = restTemplate.exchange(
+                BASE_URL,
+                HttpMethod.GET,
+                entity,
+                Aeroplane[].class
+        );
+
+        return response.getBody();
+
     }
 
 }
